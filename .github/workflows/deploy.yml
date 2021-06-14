@@ -1,0 +1,21 @@
+name: "Publish back-office-web-client"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish-back-office-web-client:
+    name: publish back-office-web-client
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: back-office-web-client
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          registry: ${{ secrets.DOCKER_REGISTRY }}
+          tags: "latest"
