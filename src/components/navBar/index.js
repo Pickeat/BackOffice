@@ -3,14 +3,13 @@ import {useEffect} from "react";
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-import {Link} from "react-router-dom";
-import { CalendarIcon, ChartBarIcon, FolderIcon, HomeIcon, InboxIcon, UsersIcon } from '@heroicons/react/outline'
+import { HomeIcon, UsersIcon, TicketIcon} from '@heroicons/react/outline'
+
 const navigation = [
     { name: 'Dashboard', icon: HomeIcon, href: '/dashboard', current: false },
     { name: 'Utilisateurs', icon: UsersIcon, href: '/users', current: false },
-    { name: 'Announces', icon: FolderIcon, href: '#', current: false }
+    { name: 'Announces', icon: TicketIcon, href: '/announces', current: false }
 ]
-
 const profile = ['Your Profile', 'Settings', 'Sign out']
 
 function classNames(...classes) {
@@ -25,6 +24,7 @@ export default function NavBar() {
             }
         }
     });
+
     return (
         <div>
             <div className="bg-gray-800 pb-32">
