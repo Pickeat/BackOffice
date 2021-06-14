@@ -13,9 +13,12 @@ jobs:
       - uses: actions/checkout@v2
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
+        env:
+          api_url: ${{ secrets.REACT_APP_API_URL }}
         with:
           name: back-office-web-client
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           registry: ${{ secrets.DOCKER_REGISTRY }}
           tags: "latest"
+          buildargs: api_url

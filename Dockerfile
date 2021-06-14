@@ -1,8 +1,10 @@
 
 # stage1 - build react app first
 FROM node:16-alpine as build
+ARG api_url
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
+ENV REACT_APP_API_URL=$api_url
 COPY ./package.json /app/
 RUN npm install
 COPY . /app
