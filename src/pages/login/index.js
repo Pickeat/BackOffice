@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import { toast } from 'react-toastify';
 import handleAxiosResponseError from "../../helpers/handleAxiosResponseError";
 
-export default function LoginPage() {
+export default function LoginPage(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -16,13 +16,12 @@ export default function LoginPage() {
                 Cookies.set('username', response.success.username, {expires: 91});
                 Cookies.set('email', response.success.email, {expires: 91});
                 setTimeout(() => {
-                    //props.history.push('/contact');
+                    props.history.push('/dashboard');
                 }, 500);
             }
             else if (response.warning)
                 toast.warning(response.warning)
         }).catch((error) => {
-            //setAlertMessage({error: handleAxiosResponseError(error)})
             toast.error(handleAxiosResponseError(error))
         });
         event.preventDefault()

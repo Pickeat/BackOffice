@@ -1,19 +1,33 @@
 import LoginPage from './pages/login';
+import Dashboard from './pages/dashboard'
 import './App.css';
+import Cookies from "js-cookie";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+    Redirect
 } from "react-router-dom";
 
+const PrivateRoute = ({component: Component, ...rest}) => (
+    <Route
+        {...rest}
+        render={(props) => {
+            if (Cookies.get("jwt") === undefined) {
+                return <Redirect to="/"/>;
+            } else {
+                return (<Component {...props}/>);
+            }
+        }}
+    />
+);
+
 function App() {
-  return (
+    return (
    <Router>
       <Switch>
-          <Route path="/">
-            <LoginPage />
-          </Route>
+          <Route exact path="/" component={LoginPage}/>
+          <PrivateRoute exact path="/dashboard" component={Dashboard}/>
         </Switch>
    </Router>
   );
