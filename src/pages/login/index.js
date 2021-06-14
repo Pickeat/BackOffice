@@ -1,6 +1,33 @@
-import React from "react";
+import React, {useState} from "react";
+import login from "../../api/users/login";
+import Cookies from "js-cookie";
+import { toast } from 'react-toastify';
+import handleAxiosResponseError from "../../helpers/handleAxiosResponseError";
 
 export default function LoginPage() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const callLoginRequest = (event) => {
+        login(email, password).then((response) => {
+            if (response.success) {
+                toast.success("Vous êtes authentifié");
+                Cookies.set('jwt', response.success.token, {expires: 91});
+                Cookies.set('username', response.success.username, {expires: 91});
+                Cookies.set('email', response.success.email, {expires: 91});
+                setTimeout(() => {
+                    //props.history.push('/contact');
+                }, 500);
+            }
+            else if (response.warning)
+                toast.warning(response.warning)
+        }).catch((error) => {
+            //setAlertMessage({error: handleAxiosResponseError(error)})
+            toast.error(handleAxiosResponseError(error))
+        });
+        event.preventDefault()
+    }
+
     return (
       <div className="min-h-screen bg-white flex">
         <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
@@ -13,7 +40,7 @@ export default function LoginPage() {
               />
               <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Pickeat BackOffice</h2>
             </div>
-  
+
             <div className="mt-8">
               <div>
                 <div className="mt-6 relative">
@@ -25,9 +52,9 @@ export default function LoginPage() {
                   </div>
                 </div>
               </div>
-  
+
               <div className="mt-6">
-                <form action="#" method="POST" className="space-y-6">
+                <form noValidate className="space-y-6" onSubmit={(e) => callLoginRequest(e)}>
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                       Email address
@@ -38,12 +65,14 @@ export default function LoginPage() {
                         name="email"
                         type="email"
                         autoComplete="email"
+                        value={email}
                         required
                         className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                        onChange={(event => setEmail(event.target.value))}
                       />
                     </div>
                   </div>
-  
+
                   <div className="space-y-1">
                     <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                       Password
@@ -53,9 +82,11 @@ export default function LoginPage() {
                         id="password"
                         name="password"
                         type="password"
+                        value={password}
                         autoComplete="current-password"
                         required
                         className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                        onChange={(event => setPassword(event.target.value))}
                       />
                     </div>
                   </div>
