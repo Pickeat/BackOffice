@@ -1,5 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
@@ -17,10 +17,13 @@ function classNames(...classes) {
 }
 
 export default function NavBar() {
+    const [current, setCurrent] = useState("");
+
     useEffect(() => {
         for (var i = 0; i < navigation.length; i++) {
             if (navigation[i].href === window.location.pathname) {
                 navigation[i].current = true;
+                setCurrent(navigation[i].name)
             }
         }
     });
@@ -201,7 +204,9 @@ export default function NavBar() {
                 </Disclosure>
                 <header className="py-10">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h1 className="text-3xl font-bold text-white">Dashboard</h1>
+                        <h1 className="text-3xl font-bold text-white">
+                            {current}
+                        </h1>
                     </div>
                 </header>
             </div>
