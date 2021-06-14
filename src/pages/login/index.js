@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import login from "../../api/users/login";
+import login from "../../api/auth/login";
 import Cookies from "js-cookie";
 import { toast } from 'react-toastify';
 import handleAxiosResponseError from "../../helpers/handleAxiosResponseError";

@@ -7,7 +7,7 @@ import { HomeIcon, UsersIcon, TicketIcon} from '@heroicons/react/outline'
 
 const navigation = [
     { name: 'Dashboard', icon: HomeIcon, href: '/dashboard', current: false },
-    { name: 'Utilisateurs', icon: UsersIcon, href: '/users', current: false },
+    { name: 'Utilisateurs', icon: UsersIcon, href: '/auth', current: false },
     { name: 'Announces', icon: TicketIcon, href: '/announces', current: false }
 ]
 const profile = ['Your Profile', 'Settings', 'Sign out']
