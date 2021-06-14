@@ -1,5 +1,6 @@
 import LoginPage from './pages/login';
-import Dashboard from './pages/dashboard'
+import Dashboard from './pages/dashboard';
+import UsersPage from './pages/users';
 import './App.css';
 import Cookies from "js-cookie";
 import {
@@ -27,6 +28,7 @@ function App() {
    <Router>
       <Switch>
           <Route exact path="/" component={LoginPage}/>
+          <Route exact path="/users" component={UsersPage}/>
           <PrivateRoute exact path="/dashboard" component={Dashboard}/>
         </Switch>
    </Router>

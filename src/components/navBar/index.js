@@ -1,16 +1,30 @@
 /* This example requires Tailwind CSS v2.0+ */
+import {useEffect} from "react";
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import {Link} from "react-router-dom";
+import { CalendarIcon, ChartBarIcon, FolderIcon, HomeIcon, InboxIcon, UsersIcon } from '@heroicons/react/outline'
+const navigation = [
+    { name: 'Dashboard', icon: HomeIcon, href: '/dashboard', current: false },
+    { name: 'Utilisateurs', icon: UsersIcon, href: '/users', current: false },
+    { name: 'Announces', icon: FolderIcon, href: '#', current: false }
+]
 
-const navigation = ['Dashboard', 'Team', 'Projects', 'Calendar', 'Reports']
 const profile = ['Your Profile', 'Settings', 'Sign out']
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Example() {
+export default function NavBar() {
+    useEffect(() => {
+        for (var i = 0; i < navigation.length; i++) {
+            if (navigation[i].href === window.location.pathname) {
+                navigation[i].current = true;
+            }
+        }
+    });
     return (
         <div>
             <div className="bg-gray-800 pb-32">
@@ -24,40 +38,46 @@ export default function Example() {
                                             <div className="flex-shrink-0">
                                                 <img
                                                     className="h-8 w-8"
-                                                    src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                                                    src="https://pickeat.fr/images/logo.png"
                                                     alt="Workflow"
                                                 />
                                             </div>
                                             <div className="hidden md:block">
                                                 <div className="ml-10 flex items-baseline space-x-4">
-                                                    {navigation.map((item, itemIdx) =>
-                                                        itemIdx === 0 ? (
-                                                            <Fragment key={item}>
-                                                                {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-                                                                <a href="#" className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
-                                                                    {item}
-                                                                </a>
-                                                            </Fragment>
-                                                        ) : (
-                                                            <a
-                                                                key={item}
-                                                                href="#"
-                                                                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                                            >
-                                                                {item}
-                                                            </a>
-                                                        )
-                                                    )}
+                                                    {navigation.map((item) => (
+                                                        <a
+                                                            key={item.name}
+                                                            href={item.href}
+                                                            className={classNames(
+                                                                item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                                'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
+                                                            )}
+                                                        >
+                                                            <item.icon
+                                                                className={classNames(
+                                                                    item.current ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300',
+                                                                    'mr-3 flex-shrink-0 h-6 w-6'
+                                                                )}
+                                                                aria-hidden="true"
+                                                            />
+                                                            <span className="flex-1">{item.name}</span>
+                                                            {item.count ? (
+                                                                <span
+                                                                    className={classNames(
+                                                                        item.current ? 'bg-gray-800' : 'bg-gray-900 group-hover:bg-gray-800',
+                                                                        'ml-3 inline-block py-0.5 px-3 text-xs font-medium rounded-full'
+                                                                    )}
+                                                                >
+                  {item.count}
+                </span>
+                                                            ) : null}
+                                                        </a>
+                                                    ))}
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="hidden md:block">
                                             <div className="ml-4 flex items-center md:ml-6">
-                                                <button className="bg-gray-800 p-1 text-gray-400 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                                                    <span className="sr-only">View notifications</span>
-                                                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                                                </button>
-
                                                 {/* Profile dropdown */}
                                                 <Menu as="div" className="ml-3 relative">
                                                     {({ open }) => (
@@ -65,6 +85,7 @@ export default function Example() {
                                                             <div>
                                                                 <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                                                     <span className="sr-only">Open user menu</span>
+
                                                                     <img
                                                                         className="h-8 w-8 rounded-full"
                                                                         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -184,16 +205,6 @@ export default function Example() {
                     </div>
                 </header>
             </div>
-
-            <main className="-mt-32">
-                <div className="max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
-                    {/* Replace with your content */}
-                    <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
-                        <div className="border-4 border-dashed border-gray-200 rounded-lg h-96" />
-                    </div>
-                    {/* /End replace */}
-                </div>
-            </main>
         </div>
     )
 }
