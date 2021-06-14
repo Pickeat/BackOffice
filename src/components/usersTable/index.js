@@ -1,19 +1,16 @@
 /* This example requires Tailwind CSS v2.0+ */
-import login from "../../api/auth/login";
 import {toast} from "react-toastify";
-import Cookies from "js-cookie";
 import handleAxiosResponseError from "../../helpers/handleAxiosResponseError";
-import listAnnounces from "../../api/announces";
 import {useEffect, useState} from "react";
 import listUsers from "../../api/users/list";
 
-let announces = []
+let users = []
 export default function UsersTable() {
     const callListUsersRequest = (event) => {
         listUsers().then((response) => {
             if (response.success) {
                 console.log(response.success);
-                announces = response.success.users;
+                users = response.success.users;
                 setBusy(false);
             }
             else if (response.warning)
@@ -26,11 +23,11 @@ export default function UsersTable() {
 
     useEffect(() => {
         callListUsersRequest();
-    }, [announces]);
+    }, [users]);
 
     return (
         <div className="flex flex-col">
-            {isBusy ? (<div> flkqspoefq</div>) : (
+            {isBusy ? (<div> Loading...</div>) : (
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                     <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -73,7 +70,7 @@ export default function UsersTable() {
                             </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
-                            {announces.map((person) => (
+                            {users.map((person) => (
                                 <tr key={person.email}>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="flex items-center">
