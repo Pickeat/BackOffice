@@ -3,7 +3,7 @@ import axios from "axios";
 import {LIST_ANNOUNCES_URL} from '../../constants/apiEndpoints';
 import Cookies from "js-cookie";
 
-export default async function listUsers() {
+export default async function listAnnounces() {
     let config = setAxiosConfig('GET', LIST_ANNOUNCES_URL, false);
     let token = Cookies.get('jwt');
 
