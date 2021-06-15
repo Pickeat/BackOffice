@@ -53,7 +53,7 @@ export default function Dashboard() {
                     { name: 'Available Announces', stat: statsAnnouncesArray.available_announces },
                     { name: 'WFR Announces', stat: statsAnnouncesArray.waiting_for_reservation_announces },
                     { name: 'Given Announces', stat: statsAnnouncesArray.given_announces },
-                    { name: 'Noted Annonces', stat: statsAnnouncesArray.noted_announces },
+                    { name: 'Noted Announces', stat: statsAnnouncesArray.noted_announces },
                     { name: 'Deleted Announces', stat: statsAnnouncesArray.deleted_announces }
                 ]}/>
                 </div>
