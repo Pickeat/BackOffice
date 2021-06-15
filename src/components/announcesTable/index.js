@@ -39,8 +39,9 @@ export default function AnnouncesTable() {
     return (
         <div className="flex flex-col">
             {isBusy ? (<div> Loading...</div>) : (
+                <div className="flex flex-col">
+                <SearchBar searchInput={searchInput} function={updateInput}/>
                 <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <SearchBar searchInput={searchInput} function={updateInput}/>
                     <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                         <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                             <table className="min-w-full divide-y divide-gray-200">
@@ -125,6 +126,7 @@ export default function AnnouncesTable() {
                             </table>
                         </div>
                     </div>
+                </div>
                 </div>
             )}
         </div>
