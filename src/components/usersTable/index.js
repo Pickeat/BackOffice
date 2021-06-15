@@ -3,13 +3,19 @@ import {toast} from "react-toastify";
 import handleAxiosResponseError from "../../helpers/handleAxiosResponseError";
 import {useEffect, useState} from "react";
 import listUsers from "../../api/users/list";
+import {SearchIcon} from "@heroicons/react/outline";
 
-let users = []
 export default function UsersTable() {
+    const [isBusy, setBusy] = useState(true)
+    const [usersStatic, setUsersStatic] = useState([])
+    const [users, setUsers] = useState([])
+    const [searchInput, setSearchInput] = useState("")
+
     const callListUsersRequest = (event) => {
         listUsers().then((response) => {
             if (response.success) {
-                users = response.success.users;
+                setUsers(response.success.users);
+                setUsersStatic(response.success.users);
                 setBusy(false);
             }
             else if (response.warning)
@@ -18,16 +24,44 @@ export default function UsersTable() {
             toast.error(handleAxiosResponseError(error))
         });
     }
-    const [isBusy, setBusy] = useState(true)
+
+    const updateInput = async (input) => {
+        const filtered = usersStatic.filter(user => {
+            if (user.name)
+                return user.name.toLowerCase().includes(input.toString().toLowerCase())
+        })
+        setSearchInput(input);
+        setUsers(filtered);
+    }
 
     useEffect(() => {
         callListUsersRequest();
-    }, [users]);
+    }, []);
 
     return (
         <div className="flex flex-col">
             {isBusy ? (<div> Loading...</div>) : (
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+
+                <div className="max-w-xs py-2 align-middle inline-block sm:px-6 lg:px-8">
+                    <label htmlFor="search" className="sr-only">
+                        Search
+                    </label>
+                    <div className="relative">
+                        <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
+                            <SearchIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
+                        </div>
+                        <input
+                            name="search"
+                            id="search"
+                            onChange={event => (updateInput(event.target.value))}
+                            className="block w-full bg-white border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 sm:text-sm"
+                            placeholder="Search"
+                            type="search"
+                        />
+                    </div>
+                </div>
+
                 <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                     <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                         <table className="min-w-full divide-y divide-gray-200">

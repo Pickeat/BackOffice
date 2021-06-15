@@ -5,7 +5,7 @@ import listAnnounces from "../../api/announces";
 
 export default function AnnouncesTable() {
     const [announces, setAnnounces] = useState([])
-    const callListAnnouncesRequest = (event) => {
+    const callListAnnouncesRequest = () => {
         listAnnounces().then((response) => {
             if (response.success) {
                 setAnnounces(response.success.products);
