@@ -12,7 +12,7 @@ export default function Dashboard() {
     const [statsUsersArray, setStatsUsersArray] = useState([]);
     const [statsAnnouncesArray, setStatsAnnouncesArray] = useState([]);
 
-    const getMetrics = (event) => {
+    const getMetrics = () => {
         statsUsers().then((response) => {
             if (response.success) {
                 setStatsUsersArray(response.success);
@@ -33,7 +33,6 @@ export default function Dashboard() {
 
     useEffect(() => {
         getMetrics();
-        console.log(statsAnnouncesArray)
     }, []);
 
     return (
