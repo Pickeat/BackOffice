@@ -14,6 +14,7 @@ export default function InputForm(props) {
                         name={props.name}
                         id={props.id}
                         className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
+                        onChange={event => props.setter(event.target.value)}
                         placeholder={props.placeholder}
                     />
                 </div>

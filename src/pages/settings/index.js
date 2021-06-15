@@ -1,15 +1,42 @@
+import {useState} from "react";
 import NavBar from '../../components/navBar'
 import PageContent from "../../components/pageContent";
 import {KeyIcon, MailIcon, UserIcon} from "@heroicons/react/outline";
 import InputForm from "../../components/inputForm";
+import createUser from "../../api/auth/register";
+import {toast} from "react-toastify";
+import handleAxiosResponseError from "../../helpers/handleAxiosResponseError";
 
 export default function Settings() {
+    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [repPassword, setRepPassword] = useState("");
 
+    const callSettingsRequest = (event) => {
+        event.preventDefault()
+        if (!username || !email ||!password || !repPassword) {
+            toast.warning("Un ou plusieurs champ(s) est/sont vide(s)")
+            return
+        }
+        if (password !== repPassword) {
+            toast.error("Password mismatch")
+            return
+        }
+        createUser(username, email, password).then((response) => {
+            if (response.success) {
+                toast.success("User Successfully Created");
+            } else if (response.warning)
+                toast.warning(response.warning)
+        }).catch((error) => {
+            toast.error(handleAxiosResponseError(error))
+        });
+    }
     return (
         <div>
             <NavBar/>
             <PageContent content={
-                <form action="#" method="POST">
+                <form noValidate onSubmit={(e) => callSettingsRequest(e)}>
                     <div className="shadow sm:rounded-md sm:overflow-hidden">
                         <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
                             <div>
@@ -21,16 +48,16 @@ export default function Settings() {
 
                             <div className="grid grid-cols-3 gap-6">
                                 <InputForm title={"Username"} type={"text"} name={"username"} id={"username"}
-                                           placeholder={"New User"}
+                                           placeholder={"New User"} setter={setUsername}
                                            icon={<UserIcon className="h-5 w-5 text-gray-400" aria-hidden="true"/>}/>
                                 <InputForm title={"Email"} type={"email"} name={"email"} id={"email"}
-                                           placeholder={"you@example.com"}
+                                           placeholder={"you@example.com"} setter={setEmail}
                                            icon={<MailIcon className="h-5 w-5 text-gray-400" aria-hidden="true"/>}/>
                                 <InputForm title={"Password"} type={"password"} name={"password"} id={"password"}
-                                           placeholder={"*****"}
+                                           placeholder={"*****"} setter={setPassword}
                                            icon={<KeyIcon className="h-5 w-5 text-gray-400" aria-hidden="true"/>}/>
                                 <InputForm title={"Repeat Password"} type={"password"} name={"rep-password"}
-                                           id={"rep-password"} placeholder={"*****"}
+                                           id={"rep-password"} placeholder={"*****"} setter={setRepPassword}
                                            icon={<KeyIcon className="h-5 w-5 text-gray-400" aria-hidden="true"/>}/>
                             </div>
                         </div>
