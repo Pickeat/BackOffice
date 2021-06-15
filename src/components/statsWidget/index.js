@@ -4,10 +4,11 @@ export default function StatsWidget(props) {
 
             <div className="relative">
                 <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                    <div className="w-full border-t border-gray-300" />
+                    <div className="w-full border-t border-gray-300"/>
                 </div>
                 <div className="relative flex justify-start">
-                    {props.first === "true" ? (<span className="pr-3 text-lg bg-gray-800 font-medium text-white">{props.title}</span>
+                    {props.first === "true" ? (
+                        <span className="pr-3 text-lg bg-gray-800 font-medium text-white">{props.title}</span>
                     ) : (
                         <span className="pr-3 text-lg bg-white font-medium text-gray-800">{props.title}</span>
                     )}

@@ -6,8 +6,7 @@ import {toast} from "react-toastify";
 import handleAxiosResponseError from "../../helpers/handleAxiosResponseError";
 import statsUsers from "../../api/stats/users";
 import statsAnnounces from "../../api/stats/announces";
-import {useState} from "react";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
 export default function Dashboard() {
     const [statsUsersArray, setStatsUsersArray] = useState([]);
@@ -17,8 +16,7 @@ export default function Dashboard() {
         statsUsers().then((response) => {
             if (response.success) {
                 setStatsUsersArray(response.success);
-            }
-            else if (response.warning)
+            } else if (response.warning)
                 toast.warning(response.warning);
         }).catch((error) => {
             toast.error(handleAxiosResponseError(error));
@@ -26,8 +24,7 @@ export default function Dashboard() {
         statsAnnounces().then((response) => {
             if (response.success) {
                 setStatsAnnouncesArray(response.success);
-            }
-            else if (response.warning)
+            } else if (response.warning)
                 toast.warning(response.warning);
         }).catch((error) => {
             toast.error(handleAxiosResponseError(error));
@@ -44,18 +41,18 @@ export default function Dashboard() {
             <NavBar/>
             <PageContent content={
                 <div><StatsWidget first="true" title="Utilisateurs" statsList={[
-                    { name: 'Total Users', stat: statsUsersArray.users_total },
-                    { name: 'Registered Users', stat: statsUsersArray.registered_users },
-                    { name: 'Confirmed Users', stat: statsUsersArray.confirmed_users }
+                    {name: 'Total Users', stat: statsUsersArray.users_total},
+                    {name: 'Registered Users', stat: statsUsersArray.registered_users},
+                    {name: 'Confirmed Users', stat: statsUsersArray.confirmed_users}
                 ]}/>
-                <StatsWidget title="Announces" statsList={[
-                    { name: 'Total Announces', stat: statsAnnouncesArray.announces_total },
-                    { name: 'Available Announces', stat: statsAnnouncesArray.available_announces },
-                    { name: 'WFR Announces', stat: statsAnnouncesArray.waiting_for_reservation_announces },
-                    { name: 'Given Announces', stat: statsAnnouncesArray.given_announces },
-                    { name: 'Noted Announces', stat: statsAnnouncesArray.noted_announces },
-                    { name: 'Deleted Announces', stat: statsAnnouncesArray.deleted_announces }
-                ]}/>
+                    <StatsWidget title="Announces" statsList={[
+                        {name: 'Total Announces', stat: statsAnnouncesArray.announces_total},
+                        {name: 'Available Announces', stat: statsAnnouncesArray.available_announces},
+                        {name: 'WFR Announces', stat: statsAnnouncesArray.waiting_for_reservation_announces},
+                        {name: 'Given Announces', stat: statsAnnouncesArray.given_announces},
+                        {name: 'Noted Announces', stat: statsAnnouncesArray.noted_announces},
+                        {name: 'Deleted Announces', stat: statsAnnouncesArray.deleted_announces}
+                    ]}/>
                 </div>
 
             }/>

@@ -1,6 +1,6 @@
 import setAxiosConfig from "../../helpers/setAxiosConfig";
 import axios from "axios";
-import { SIGN_IN_URL } from '../../constants/apiEndpoints';
+import {SIGN_IN_URL} from '../../constants/apiEndpoints';
 
 export default async function login(email, password) {
     let body = {

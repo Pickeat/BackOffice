@@ -1,14 +1,13 @@
 /* This example requires Tailwind CSS v2.0+ */
-import {useEffect, useState} from "react";
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-import { HomeIcon, UsersIcon, TicketIcon} from '@heroicons/react/outline'
+import {Fragment, useEffect, useState} from "react";
+import {Disclosure, Menu, Transition} from '@headlessui/react'
+import {BellIcon, CogIcon, HomeIcon, MenuIcon, TicketIcon, UsersIcon, XIcon} from '@heroicons/react/outline'
 
 const navigation = [
-    { name: 'Dashboard', icon: HomeIcon, href: '/dashboard', current: false },
-    { name: 'Utilisateurs', icon: UsersIcon, href: '/users', current: false },
-    { name: 'Announces', icon: TicketIcon, href: '/announces', current: false }
+    {name: 'Dashboard', icon: HomeIcon, href: '/dashboard', current: false},
+    {name: 'Utilisateurs', icon: UsersIcon, href: '/users', current: false},
+    {name: 'Announces', icon: TicketIcon, href: '/announces', current: false},
+    {name: 'Settings', icon: CogIcon, href: '/settings', current: false}
 ]
 const profile = ['Your Profile', 'Settings', 'Sign out']
 
@@ -32,7 +31,7 @@ export default function NavBar() {
         <div>
             <div className="bg-gray-800 pb-32">
                 <Disclosure as="nav" className="bg-gray-800">
-                    {({ open }) => (
+                    {({open}) => (
                         <>
                             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                                 <div className="border-b border-gray-700">
@@ -83,10 +82,11 @@ export default function NavBar() {
                                             <div className="ml-4 flex items-center md:ml-6">
                                                 {/* Profile dropdown */}
                                                 <Menu as="div" className="ml-3 relative">
-                                                    {({ open }) => (
+                                                    {({open}) => (
                                                         <>
                                                             <div>
-                                                                <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                                                                <Menu.Button
+                                                                    className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                                                     <span className="sr-only">Open user menu</span>
 
                                                                     <img
@@ -112,7 +112,7 @@ export default function NavBar() {
                                                                 >
                                                                     {profile.map((item) => (
                                                                         <Menu.Item key={item}>
-                                                                            {({ active }) => (
+                                                                            {({active}) => (
                                                                                 <a
                                                                                     href="#"
                                                                                     className={classNames(
@@ -134,12 +134,13 @@ export default function NavBar() {
                                         </div>
                                         <div className="-mr-2 flex md:hidden">
                                             {/* Mobile menu button */}
-                                            <Disclosure.Button className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                                            <Disclosure.Button
+                                                className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                                 <span className="sr-only">Open main menu</span>
                                                 {open ? (
-                                                    <XIcon className="block h-6 w-6" aria-hidden="true" />
+                                                    <XIcon className="block h-6 w-6" aria-hidden="true"/>
                                                 ) : (
-                                                    <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+                                                    <MenuIcon className="block h-6 w-6" aria-hidden="true"/>
                                                 )}
                                             </Disclosure.Button>
                                         </div>
@@ -153,7 +154,8 @@ export default function NavBar() {
                                         itemIdx === 0 ? (
                                             <Fragment key={item}>
                                                 {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-                                                <a href="#" className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
+                                                <a href="#"
+                                                   className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
                                                     {item}
                                                 </a>
                                             </Fragment>
@@ -178,12 +180,16 @@ export default function NavBar() {
                                             />
                                         </div>
                                         <div className="ml-3">
-                                            <div className="text-base font-medium leading-none text-white">Tom Cook</div>
-                                            <div className="text-sm font-medium leading-none text-gray-400">tom@example.com</div>
+                                            <div className="text-base font-medium leading-none text-white">Tom Cook
+                                            </div>
+                                            <div
+                                                className="text-sm font-medium leading-none text-gray-400">tom@example.com
+                                            </div>
                                         </div>
-                                        <button className="ml-auto bg-gray-800 flex-shrink-0 p-1 text-gray-400 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                                        <button
+                                            className="ml-auto bg-gray-800 flex-shrink-0 p-1 text-gray-400 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                             <span className="sr-only">View notifications</span>
-                                            <BellIcon className="h-6 w-6" aria-hidden="true" />
+                                            <BellIcon className="h-6 w-6" aria-hidden="true"/>
                                         </button>
                                     </div>
                                     <div className="mt-3 px-2 space-y-1">
