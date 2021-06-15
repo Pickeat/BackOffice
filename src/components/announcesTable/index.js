@@ -2,13 +2,19 @@ import {toast} from "react-toastify";
 import handleAxiosResponseError from "../../helpers/handleAxiosResponseError";
 import {useEffect, useState} from "react";
 import listAnnounces from "../../api/announces";
+import SearchBar from "../searchBar";
 
 export default function AnnouncesTable() {
-    const [announces, setAnnounces] = useState([])
+    const [announces, setAnnounces] = useState([]);
+    const [announcesStatic, setAnnouncesStatic] = useState([]);
+    const [searchInput, setSearchInput] = useState("");
+    const [isBusy, setBusy] = useState(true);
+
     const callListAnnouncesRequest = () => {
         listAnnounces().then((response) => {
             if (response.success) {
                 setAnnounces(response.success.products);
+                setAnnouncesStatic(response.success.products);
                 setBusy(false);
             }
             else if (response.warning)
@@ -17,7 +23,15 @@ export default function AnnouncesTable() {
             toast.error(handleAxiosResponseError(error))
         });
     }
-    const [isBusy, setBusy] = useState(true)
+
+    const updateInput = async (input) => {
+        const filtered = announcesStatic.filter(announces => {
+            if (announces.title)
+                return announces.title.toLowerCase().includes(input.toString().toLowerCase())
+        })
+        setSearchInput(input);
+        setAnnounces(filtered);
+    }
 
     useEffect(() => {
         callListAnnouncesRequest();
@@ -27,6 +41,7 @@ export default function AnnouncesTable() {
         <div className="flex flex-col">
             {isBusy ? (<div> Loading...</div>) : (
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <SearchBar searchInput={searchInput} function={updateInput}/>
                 <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                     <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                         <table className="min-w-full divide-y divide-gray-200">
