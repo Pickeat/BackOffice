@@ -8,7 +8,6 @@ export default function AnnouncesTable() {
     const callListAnnouncesRequest = (event) => {
         listAnnounces().then((response) => {
             if (response.success) {
-                console.log(response.success);
                 setAnnounces(response.success.products);
                 setBusy(false);
             }
@@ -64,7 +63,7 @@ export default function AnnouncesTable() {
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
                             {announces.map((person) => (
-                                <tr key={person.email}>
+                                <tr key={person._id}>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="flex items-center">
                                             <div className="flex-shrink-0 h-10 w-10">

@@ -9,7 +9,6 @@ export default function UsersTable() {
     const callListUsersRequest = (event) => {
         listUsers().then((response) => {
             if (response.success) {
-                console.log(response.success);
                 users = response.success.users;
                 setBusy(false);
             }
