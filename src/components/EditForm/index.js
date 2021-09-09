@@ -13,6 +13,7 @@ export default function EditForm(props) {
     const [personLevel, setPersonLevel] = useState(props.person.level );
     const [personNote, setPersonNote] = useState(props.person.note);
     const [personXp, setPersonXp] = useState(props.person.leveling_points);
+    const [personDescription, setPersonDescription] = useState(props.person.description);
 
     const callLoginRequest = (event) => {
         props.person.name = personName;
@@ -24,6 +25,7 @@ export default function EditForm(props) {
         props.person.level = personLevel
         props.person.status = personStatus
         props.person.note = personNote
+        props.person.description = personDescription
 
         edit(props.person).then((response) => {
             if (response.success) {
@@ -117,6 +119,22 @@ export default function EditForm(props) {
                                     onChange={(event => setPersonEmail(event.target.value))}
                                     type="email"
                                     autoComplete="email"
+                                    className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                />
+                            </div>
+                        </div>
+                        <div className="sm:col-span-4">
+                            <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+                                Description
+                            </label>
+                            <div className="mt-1">
+                                <input
+                                    id="description"
+                                    name="description"
+                                    defaultValue={props.person.description}
+                                    onChange={(event => setPersonDescription(event.target.value))}
+                                    type="description"
+                                    autoComplete="description"
                                     className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                 />
                             </div>
