@@ -82,6 +82,12 @@ export default function UsersTable() {
                                         scope="col"
                                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                     >
+                                        Reports
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    >
                                         Create At
                                     </th>
                                     <th scope="col" className="relative px-6 py-3">
@@ -129,6 +135,7 @@ export default function UsersTable() {
 
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{person.gender}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{person.reports.length}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{new Intl.DateTimeFormat("fr-FR", {
                                             year: "numeric",
                                             month: "long",
