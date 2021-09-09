@@ -4,12 +4,15 @@ import handleAxiosResponseError from "../../helpers/handleAxiosResponseError";
 import {useEffect, useState} from "react";
 import listUsers from "../../api/users/list";
 import SearchBar from "../searchBar";
+import Modal from "../Modal";
 
 export default function UsersTable() {
     const [isBusy, setBusy] = useState(true);
     const [usersStatic, setUsersStatic] = useState([]);
     const [users, setUsers] = useState([]);
     const [searchInput, setSearchInput] = useState("");
+    const [open, setOpen] = useState(false);
+    const [currentPerson, setCurrentPerson] = useState({});
 
     const callListUsersRequest = () => {
         listUsers().then((response) => {
@@ -25,6 +28,7 @@ export default function UsersTable() {
     }
 
     const updateInput = async (input) => {
+        // eslint-disable-next-line array-callback-return
         const filtered = usersStatic.filter(user => {
             if (user.name)
                 return user.name.toLowerCase().includes(input.toString().toLowerCase())
@@ -41,6 +45,7 @@ export default function UsersTable() {
         <div className="flex flex-col">
             {isBusy ? (<div> Loading...</div>) : (
                 <div className="flex flex-col">
+                    {open === true &&  <Modal open={open} setOpen={setOpen} person={currentPerson}/>}
                     <SearchBar searchInput={searchInput} function={updateInput}/>
                 <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -142,9 +147,9 @@ export default function UsersTable() {
                                             day: "2-digit"
                                         }).format(new Date(person.created_at))}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                                            <button className="text-indigo-600 hover:text-indigo-900" onClick={() => {setOpen(true); setCurrentPerson(person)}}>
                                                 Edit
-                                            </a>
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}
