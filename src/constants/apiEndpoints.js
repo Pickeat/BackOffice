@@ -5,6 +5,8 @@ export const REGISTER_URL = BASE_URL + '/auth/register';
 export const LIST_USERS_URL = BASE_URL + '/users/list';
 export const EDIT_USERS_URL = BASE_URL + '/users/edit';
 export const LIST_ANNOUNCES_URL = BASE_URL + '/products/list';
+export const EDIT_ANNOUNCES_URL = BASE_URL + '/products/edit';
 export const STATS_USERS_URL = BASE_URL + '/stats/users';
 export const STATS_ANNOUNCES_URL = BASE_URL + '/stats/announces';
+
 

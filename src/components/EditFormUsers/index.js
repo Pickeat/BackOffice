@@ -3,7 +3,7 @@ import edit from "../../api/auth/edit";
 import {toast} from "react-toastify";
 import handleAxiosResponseError from "../../helpers/handleAxiosResponseError";
 
-export default function EditForm(props) {
+export default function EditFormUsers(props) {
     const [personName, setPersonName] = useState(props.person.name);
     const [personPhone, setPersonPhone] = useState(props.person.phone_number);
     const [personEmail, setPersonEmail] = useState(props.person.email);
@@ -141,7 +141,7 @@ export default function EditForm(props) {
                         </div>
 
                         <div className="sm:col-span-3">
-                            <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+                            <label htmlFor="status" className="block text-sm font-medium text-gray-700">
                                Status
                             </label>
                             <div className="mt-1">

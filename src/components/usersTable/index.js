@@ -45,7 +45,7 @@ export default function UsersTable() {
         <div className="flex flex-col">
             {isBusy ? (<div> Loading...</div>) : (
                 <div className="flex flex-col">
-                    {open === true &&  <Modal open={open} setOpen={setOpen} person={currentPerson}/>}
+                    {open === true &&  <Modal open={open} setOpen={setOpen} person={currentPerson} isEditUser={false}/>}
                     <SearchBar searchInput={searchInput} function={updateInput}/>
                 <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">

@@ -3,12 +3,15 @@ import handleAxiosResponseError from "../../helpers/handleAxiosResponseError";
 import {useEffect, useState} from "react";
 import listAnnounces from "../../api/announces";
 import SearchBar from "../searchBar";
+import Modal from "../Modal";
 
 export default function AnnouncesTable() {
     const [announces, setAnnounces] = useState([]);
     const [announcesStatic, setAnnouncesStatic] = useState([]);
     const [searchInput, setSearchInput] = useState("");
     const [isBusy, setBusy] = useState(true);
+    const [open, setOpen] = useState(false);
+    const [currentAnnounce, setCurrentAnnounce] = useState({});
 
     const callListAnnouncesRequest = () => {
         listAnnounces().then((response) => {
@@ -24,6 +27,7 @@ export default function AnnouncesTable() {
     }
 
     const updateInput = async (input) => {
+        // eslint-disable-next-line array-callback-return
         const filtered = announcesStatic.filter(announces => {
             if (announces.title)
                 return announces.title.toLowerCase().includes(input.toString().toLowerCase())
@@ -40,6 +44,7 @@ export default function AnnouncesTable() {
         <div className="flex flex-col">
             {isBusy ? (<div> Loading...</div>) : (
                 <div className="flex flex-col">
+                    {open === true &&  <Modal open={open} setOpen={setOpen} person={currentAnnounce} isEditUser={true}/>}
                 <SearchBar searchInput={searchInput} function={updateInput}/>
                 <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -116,9 +121,9 @@ export default function AnnouncesTable() {
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{person.role}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                                            <button className="text-indigo-600 hover:text-indigo-900" onClick={() => {setOpen(true); setCurrentAnnounce(person)}}>
                                                 Edit
-                                            </a>
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}
