@@ -2,6 +2,7 @@
 import {Fragment, useEffect, useState} from "react";
 import {Disclosure, Menu, Transition} from '@headlessui/react'
 import {BellIcon, CogIcon, HomeIcon, MenuIcon, TicketIcon, UsersIcon, XIcon} from '@heroicons/react/outline'
+import Logo from '../../statics/logo.png';
 
 const navigation = [
     {name: 'Dashboard', icon: HomeIcon, href: '/dashboard', current: false},
@@ -19,7 +20,7 @@ export default function NavBar() {
     const [current, setCurrent] = useState("");
 
     useEffect(() => {
-        for (var i = 0; i < navigation.length; i++) {
+        for (let i = 0; i < navigation.length; i++) {
             if (navigation[i].href === window.location.pathname) {
                 navigation[i].current = true;
                 setCurrent(navigation[i].name)
@@ -40,7 +41,7 @@ export default function NavBar() {
                                             <div className="flex-shrink-0">
                                                 <img
                                                     className="h-8 w-8"
-                                                    src="https://pickeat.fr/images/logo.png"
+                                                    src={Logo}
                                                     alt="Workflow"
                                                 />
                                             </div>

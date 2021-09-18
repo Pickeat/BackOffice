@@ -3,6 +3,7 @@ import login from "../../api/auth/login";
 import Cookies from "js-cookie";
 import {toast} from 'react-toastify';
 import handleAxiosResponseError from "../../helpers/handleAxiosResponseError";
+import Logo from '../../statics/logo.png';
 
 export default function LoginPage(props) {
     const [email, setEmail] = useState("");
@@ -33,7 +34,7 @@ export default function LoginPage(props) {
                     <div>
                         <img
                             className="h-12 w-auto"
-                            src="https://pickeat.fr/images/logo.png"
+                            src={Logo}
                             alt="Workflow"
                         />
                         <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Pickeat BackOffice</h2>
