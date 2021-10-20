@@ -1,7 +1,9 @@
 import {useState} from "react";
 import edit from "../../api/auth/edit";
+import UpdateUserPicture from "../../api/auth/updateUserPicture";
 import {toast} from "react-toastify";
 import handleAxiosResponseError from "../../helpers/handleAxiosResponseError";
+import { FilePicker } from 'react-file-picker'
 
 export default function EditFormUsers(props) {
     const [personName, setPersonName] = useState(props.person.name);
@@ -14,6 +16,17 @@ export default function EditFormUsers(props) {
     const [personNote, setPersonNote] = useState(props.person.note);
     const [personXp, setPersonXp] = useState(props.person.leveling_points);
     const [personDescription, setPersonDescription] = useState(props.person.description);
+
+    const callUpdateUserPicture = (FileObject, id) => {
+        UpdateUserPicture(FileObject, id).then((response) => {
+            if (response.success) {
+                toast.success("Informations mises à jour");
+            } else if (response.warning)
+                toast.warning(response.warning)
+        }).catch((error) => {
+            toast.error(handleAxiosResponseError(error))
+        });
+    }
 
     const callLoginRequest = (event) => {
         props.person.name = personName;
@@ -55,6 +68,21 @@ export default function EditFormUsers(props) {
                         <h3 className="text-lg leading-6 font-medium text-gray-900">Informations personnelles</h3>
                         <p className="mt-1 text-sm text-gray-500">Utilisez une adresse permanente où l'utilisateur peut recevoir du courrier.</p>
                     </div>
+                    <FilePicker
+                      extensions={['jpg', 'jpeg', 'png']}
+                      onChange={FileObject => callUpdateUserPicture(FileObject, props.person._id)}
+                      onError={errMsg => (toast.error(errMsg))}
+                        >
+                        <div className="flex-shrink-0 h-20 w-20">
+                            {props.person.image === undefined ? (
+                                <img className="h-20 w-20 rounded-full"
+                                     src="https://app.pickeat.fr/static/media/wallpaper-login.730d275a.jpg"
+                                     alt=""/>)
+                              : (<img className="h-20 w-20 rounded-full"
+                                      src={"https://minio.pickeat.fr/minio/download/users/" + props.person.image + "?token="}
+                                      alt=""/>)}
+                        </div>
+                    </FilePicker>
                     <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                         <div className="sm:col-span-3">
                             <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">

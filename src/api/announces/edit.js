@@ -3,8 +3,8 @@ import axios from "axios";
 import {EDIT_ANNOUNCES_URL} from '../../constants/apiEndpoints';
 import Cookies from "js-cookie";
 
-export default async function editAnnouce(data) {
-    const endPoint = EDIT_ANNOUNCES_URL + '/' + data._id
+export default async function editAnnouce(data, id) {
+    const endPoint = EDIT_ANNOUNCES_URL + '/' + id
     let config = setAxiosConfig('POST', endPoint, true);
     let token = Cookies.get('jwt');
 
