@@ -2,12 +2,25 @@ import {useState} from "react";
 import {toast} from "react-toastify";
 import editAnnouce from "../../api/announces/edit";
 import handleAxiosResponseError from "../../helpers/handleAxiosResponseError";
+import {FilePicker} from "react-file-picker";
+import UpdateProductPicture from "../../api/announces/updateProductPicture";
 
 export default function EditAnnounces(props) {
     const [announceTitle, setAnnounceTitle] = useState(props.person.title);
     const [announceDescription, setAnnounceDescription] = useState(props.person.description);
     const [announceLabel, setAnnounceLabel] = useState(props.person.label);
     const [announceStatus, setAnnounceStatus] = useState(props.person.status);
+
+    const callUpdateProductPicture = (FileObject, id) => {
+        UpdateProductPicture(FileObject, id).then((response) => {
+            if (response.success) {
+                toast.success("Informations mises à jour");
+            } else if (response.warning)
+                toast.warning(response.warning)
+        }).catch((error) => {
+            toast.error(handleAxiosResponseError(error))
+        });
+    }
 
     const callLoginRequest = (event) => {
         props.person.title = announceTitle;
@@ -44,6 +57,21 @@ export default function EditAnnounces(props) {
                             <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
                                 Titre
                             </label>
+                            <FilePicker
+                              extensions={['jpg', 'jpeg', 'png']}
+                              onChange={FileObject => callUpdateProductPicture(FileObject, props.person._id)}
+                              onError={errMsg => (toast.error(errMsg))}
+                            >
+                                <div className="flex-shrink-0 h-20 w-20">
+                                    {props.person.image === undefined ? (
+                                        <img className="h-20 w-20 rounded-full"
+                                             src="https://app.pickeat.fr/static/media/wallpaper-login.730d275a.jpg"
+                                             alt=""/>)
+                                      : (<img className="h-20 w-20 rounded-full"
+                                              src={"https://minio.pickeat.fr/minio/download/products/" + props.person.image + "?token="}
+                                              alt=""/>)}
+                                </div>
+                            </FilePicker>
                             <div className="mt-1">
                                 <input
                                     type="text"
