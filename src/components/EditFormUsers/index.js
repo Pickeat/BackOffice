@@ -181,8 +181,8 @@ export default function EditFormUsers(props) {
                                     onChange={(event => setPersonStatus(event.target.value))}
                                     className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                 >
-                                    <option>Registered</option>
-                                    <option>Confirmed</option>
+                                    <option>registered</option>
+                                    <option>confirmed</option>
                                 </select>
                             </div>
                             <label htmlFor="country" className="block text-sm font-medium text-gray-700 mt-3">
@@ -197,7 +197,7 @@ export default function EditFormUsers(props) {
                                     onChange={(event => setPersonLevel(event.target.value))}
                                     className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                 >
-                                    <option>Beginner</option>
+                                    <option>beginner</option>
                                     <option>used_to</option>
                                     <option>confirmed</option>
                                     <option>expert</option>

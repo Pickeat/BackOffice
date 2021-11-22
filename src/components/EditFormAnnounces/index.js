@@ -134,9 +134,9 @@ export default function EditAnnounces(props) {
                                     onChange={(event => setAnnounceStatus(event.target.value))}
                                     className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                 >
-                                    <option>Reserved</option>
-                                    <option>Confirmed</option>
-                                    <option>Confirmed</option>
+                                    <option>reserved</option>
+                                    <option>confirmed</option>
+                                    <option>confirmed</option>
                                 </select>
                             </div>
                         </div>
