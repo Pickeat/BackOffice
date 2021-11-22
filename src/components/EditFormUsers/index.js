@@ -194,7 +194,7 @@ export default function EditFormUsers(props) {
                                     name="level"
                                     autoComplete="level"
                                     defaultValue={props.person.level}
-                                    onChange={(event => setPersonLevel(event.target.value))}
+                                    onChange={(event => setPersonLevel(parseInt(event.target.value)))}
                                     className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                 >
                                     <option>beginner</option>
@@ -219,7 +219,7 @@ export default function EditFormUsers(props) {
                                     name="Age"
                                     id="Age"
                                     defaultValue={props.person.age}
-                                    onChange={(event => setPersonAge(event.target.value))}
+                                    onChange={(event => setPersonAge(parseInt(event.target.value)))}
                                     className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                 />
                             </div>
@@ -235,7 +235,7 @@ export default function EditFormUsers(props) {
                                     name="note"
                                     id="note"
                                     defaultValue={props.person.note}
-                                    onChange={(event => setPersonNote(event.target.value))}
+                                    onChange={(event => setPersonNote(parseInt(event.target.value)))}
                                     className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                 />
                             </div>
@@ -252,7 +252,7 @@ export default function EditFormUsers(props) {
                                     id="leveling_pointsip"
                                     autoComplete="leveling_points"
                                     defaultValue={props.person.leveling_points}
-                                    onChange={(event => setPersonXp(event.target.value))}
+                                    onChange={(event => setPersonXp(parseInt(event.target.value)))}
                                     className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                 />
                             </div>
