@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import listAnnounces from "../../api/announces";
 import SearchBar from "../searchBar";
 import Modal from "../Modal";
+import deleteAnnounce from "../../api/announces/delete";
 
 export default function AnnouncesTable() {
     const [announces, setAnnounces] = useState([]);
@@ -24,6 +25,17 @@ export default function AnnouncesTable() {
         }).catch((error) => {
             toast.error(handleAxiosResponseError(error))
         });
+    }
+
+    const removeAnnouce = async (id) => {
+        deleteAnnounce(id).then((response) => {
+            if (response.success) {
+                toast.success("Sucessfully removed product!")
+                callListAnnouncesRequest()
+            }
+            else
+                toast.warning("Error during process")
+        })
     }
 
     const updateInput = async (input) => {
@@ -123,6 +135,9 @@ export default function AnnouncesTable() {
                                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                             <button className="text-indigo-600 hover:text-indigo-900" onClick={() => {setOpen(true); setCurrentAnnounce(person)}}>
                                                 Edit
+                                            </button>
+                                            <button className="text-red-600 hover:text-indigo-900 pl-10" onClick={() => {removeAnnouce(person._id)}}>
+                                                Remove
                                             </button>
                                         </td>
                                     </tr>
